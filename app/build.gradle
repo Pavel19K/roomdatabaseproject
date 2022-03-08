@@ -1,8 +1,16 @@
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
 apply plugin: 'kotlin-kapt'
+
+//apply plugin: 'androidx.navigation.safeargs'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 android {
     compileSdk 32
 
@@ -43,8 +51,24 @@ android {
 }
 
 dependencies {
+    def nav_version = "2.4.1"
+
+    // Java language implementation
+
+    // Kotlin
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+
+    def fragment_version = "1.4.1"
+
+    // Kotlin
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+
+
     //glide
     implementation 'com.github.bumptech.glide:glide:4.13.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
     // Room components
     implementation "androidx.room:room-runtime:2.2.5"
