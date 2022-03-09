@@ -33,6 +33,7 @@ class MemberAdapter(private val context: Context, private val listener: OnItemCl
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.findViewById<TextView>(R.id.memberName).text = getItem(position).first
         holder.itemView.findViewById<TextView>(R.id.memberLastName).text = getItem(position).last
+        holder.itemView.findViewById<TextView>(R.id.memberParty).text = getItem(position).party
 
 
     }

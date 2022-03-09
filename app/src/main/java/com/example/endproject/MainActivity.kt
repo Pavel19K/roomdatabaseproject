@@ -73,11 +73,12 @@ class MainActivity : AppCompatActivity(), MemberAdapter.OnItemClickListener{
         val mBundle = Bundle()
         mBundle.putString("first",allMembers.value?.get(position)?.first.toString())
         mBundle.putString("last",allMembers.value?.get(position)?.last.toString())
+        mBundle.putString("year",allMembers.value?.get(position)?.bornYear.toString())
+        mBundle.putString("url",allMembers.value?.get(position)?.picture.toString())
 
         val mFragment = FragmentOne()
         mFragment.arguments = mBundle
         val mFragmentTransaction = mFragmentManager.beginTransaction()
-
 
         mFragmentTransaction.replace(R.id.myNavHostGragment,mFragment).commit()
 
