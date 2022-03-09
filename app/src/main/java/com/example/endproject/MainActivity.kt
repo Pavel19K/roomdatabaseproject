@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.endproject.data.Member
 import com.example.endproject.data.MemberViewModel
 import com.example.endproject.databinding.ActivityMainBinding
-
+// ei ole päivämääriä mutta kaikki on itse kirjoitettua, sen näkee jäljestä :D
 class MainActivity : AppCompatActivity(), MemberAdapter.OnItemClickListener{
     private lateinit var memberViewModel: MemberViewModel
     private lateinit var adapter: MemberAdapter
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), MemberAdapter.OnItemClickListener{
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         memberViewModel = ViewModelProvider(this).get(MemberViewModel::class.java)
 
-        binding.button.setOnClickListener { insert() }
+        binding.button.setOnClickListener { readJson() }
 
         binding.memberRecyclerView.layoutManager = LinearLayoutManager(this)
         adapter = MemberAdapter(this, this)
@@ -39,13 +39,14 @@ class MainActivity : AppCompatActivity(), MemberAdapter.OnItemClickListener{
         //MemberAdapter(MemberOfParliament.ParliamentMembersData.members)
 
         allMembers = memberViewModel.readAllData
-
+        //kun livedata listaan ilmestyy uusi henkilö niin lisätään se room tietokantaan
         memberViewModel.members.observe(this){
             for (member in it){
                 memberViewModel.addMember(member)
             }
         }
 
+        //ladataan netistä json lista mutablelivedataan ja seurataan sen muutosta, kun tulee uusi niin lisätään se toiseen livedata listaan
         allMembers.observe(this){
             Log.d("observer", "observing")
             adapter.submitList(it)
@@ -54,11 +55,12 @@ class MainActivity : AppCompatActivity(), MemberAdapter.OnItemClickListener{
 
     }
 
-    fun insert(){
+    fun readJson(){
         /*
         for (member in MemberOfParliament.ParliamentMembersData.members){
             memberViewModel.addMember(member)
         }*/
+        //luetaan json tiedosto netistä
         memberViewModel.readMembers()
 
     }
@@ -69,7 +71,7 @@ class MainActivity : AppCompatActivity(), MemberAdapter.OnItemClickListener{
         val m: String = allMembers.value?.get(position)?.first.toString()
         Log.d("item","$m")
          */
-
+        //lähetetään tietoa fragmentille bundlessa
         val mBundle = Bundle()
         mBundle.putString("first",allMembers.value?.get(position)?.first.toString())
         mBundle.putString("last",allMembers.value?.get(position)?.last.toString())
