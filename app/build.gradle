@@ -51,9 +51,12 @@ android {
 }
 
 dependencies {
+    ext.version_retrofit = '2.9.0'
+    ext.version_moshi = '1.13.0'
+    implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
+    implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
     def nav_version = "2.4.1"
 
-    // Java language implementation
 
     // Kotlin
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"

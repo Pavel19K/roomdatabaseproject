@@ -39,6 +39,13 @@ class MainActivity : AppCompatActivity(), MemberAdapter.OnItemClickListener{
         //MemberAdapter(MemberOfParliament.ParliamentMembersData.members)
 
         allMembers = memberViewModel.readAllData
+
+        memberViewModel.members.observe(this){
+            for (member in it){
+                memberViewModel.addMember(member)
+            }
+        }
+
         allMembers.observe(this){
             Log.d("observer", "observing")
             adapter.submitList(it)
@@ -48,9 +55,11 @@ class MainActivity : AppCompatActivity(), MemberAdapter.OnItemClickListener{
     }
 
     fun insert(){
+        /*
         for (member in MemberOfParliament.ParliamentMembersData.members){
             memberViewModel.addMember(member)
-        }
+        }*/
+        memberViewModel.readMembers()
 
     }
 
