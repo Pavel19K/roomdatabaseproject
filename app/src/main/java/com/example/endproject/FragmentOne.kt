@@ -28,19 +28,16 @@ class FragmentOne : Fragment() {
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentOneBinding>(inflater, R.layout.fragment_one, container, false)
 
-        val memberViewModel = ViewModelProvider(this).get(MemberViewModel::class.java)
-
         val bundle = arguments
         binding.fragmentName.setText(bundle?.getString("first"))
         binding.fragmentLastName.setText(bundle?.getString("last"))
         binding.fragmentBornYear.setText(bundle?.getString("year"))
 
-
+        val url: String = "https://avoindata.eduskunta.fi/${bundle?.getString("url")}"
         Glide.with(this)
-            .load("https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg")
+            .load(url)
             .placeholder(R.drawable.ic_launcher_background)
             .into(binding.fragmentImage)
-        Log.d("testImage", "${bundle?.getString("url")}")
         return binding.root
     }
 
